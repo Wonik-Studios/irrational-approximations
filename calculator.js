@@ -31,7 +31,7 @@ function calculateIrrationalBestApproximator(irrational, startDenominator, endDe
     return numerators;
 }
 
-function calculateIrrationalSmallest(irrational, startDenominator, endDenominator, take, precision, untilFilled) {
+function calculateIrrationalSmallest(irrational, startDenominator, endDenominator, take, precision) {
     let numerators = [];
     let intPart = Math.floor(irrational);
     irrational = irrational - intPart;
@@ -39,7 +39,7 @@ function calculateIrrationalSmallest(irrational, startDenominator, endDenominato
     if(startDenominator <= endDenominator) {
         bestApproxes = [];
 
-        for(let i=startDenominator; i < endDenominator || untilFilled; i++) {
+        for(let i=startDenominator; i < endDenominator; i++) {
             if(numerators.length == take) {
                 break;
             }
@@ -108,4 +108,4 @@ function binaryAdd(arr, element) {
 
 // **EXAMPLES**
 // console.log(calculateIrrationalBestApproximator(Math.PI, 1, 33215, 10));
-// console.log(calculateIrrationalSmallest(Math.PI, 1, 33215, 10, 5, true));
+// console.log(calculateIrrationalSmallest(Math.PI, 1, 33215, 10, 5));
