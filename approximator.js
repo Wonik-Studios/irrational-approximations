@@ -6,26 +6,25 @@ function calculateIrrationalBestApproximator(irrational, startDenominator, endDe
     let start = approximate(irrational, startDenominator);
     numerators[0] = [startDenominator, Math.abs(irrational * 10 ** 17 - start * 10 ** 17), start];
 
-    if(startDenominator <= endDenominator) {
+    if (startDenominator <= endDenominator) {
         bestApproxes = [];
 
-        for(let i=startDenominator + 1; i <= endDenominator; i++) {
+        for (let i = startDenominator + 1; i <= endDenominator; i++) {
             let n = approximate(irrational, i);
             // console.log("This is the current approximation: " + n/i);
             // console.log(numerators[numerators.length - 1][1] / numerators[numerators.length - 1][0]);
-            let dif = Math.abs(irrational * 10 ** 17 - n/i * 10 ** 17);
-            
-            if(numerators.length < take) {
+            let dif = Math.abs(irrational * 10 ** 17 - n / i * 10 ** 17);
+
+            if (numerators.length < take) {
                 binaryAdd(numerators, [i, dif, n]);
-            }
-            else if(dif  < numerators[numerators.length - 1][1]) {
+            } else if (dif < numerators[numerators.length - 1][1]) {
                 numerators.pop();
                 binaryAdd(numerators, [i, dif, n]);
             }
         }
     }
 
-    for(let i=0; i < numerators.length; i++) {
+    for (let i = 0; i < numerators.length; i++) {
         numerators[i][2] += intPart * numerators[i][0];
     }
     return numerators;
@@ -36,25 +35,25 @@ function calculateIrrationalSmallest(irrational, startDenominator, endDenominato
     let intPart = Math.floor(irrational);
     irrational = irrational - intPart;
 
-    if(startDenominator <= endDenominator) {
+    if (startDenominator <= endDenominator) {
         bestApproxes = [];
 
-        for(let i=startDenominator; i < endDenominator; i++) {
-            if(numerators.length == take) {
+        for (let i = startDenominator; i < endDenominator; i++) {
+            if (numerators.length == take) {
                 break;
             }
-            
+
             let n = approximate(irrational, i);
-            let dif = Math.abs(irrational * 10 ** 17 - n/i * 10 ** 17);
+            let dif = Math.abs(irrational * 10 ** 17 - n / i * 10 ** 17);
 
             console.log(17 - dif.toString().length);
-            if(17 - dif.toString().length >= precision) {
+            if (17 - dif.toString().length >= precision) {
                 binaryAdd(numerators, [i, dif, n]);
             }
         }
     }
 
-    for(let i=0; i < numerators.length; i++) {
+    for (let i = 0; i < numerators.length; i++) {
         numerators[i][2] += intPart * numerators[i][0];
     }
     return numerators;
@@ -65,7 +64,7 @@ function calculateIrrationalSmallest(irrational, startDenominator, endDenominato
 function approximate(irrational, denominator) {
     let numerator = irrational * denominator;
 
-    if(irrational - Math.floor(numerator)/denominator >= Math.ceil(numerator)/denominator - irrational) {
+    if (irrational - Math.floor(numerator) / denominator >= Math.ceil(numerator) / denominator - irrational) {
         return Math.ceil(numerator);
     } else {
         return Math.floor(numerator);
@@ -77,35 +76,34 @@ function binaryAdd(arr, element) {
     let start = 0;
     let end = arr.length - 1;
 
-    if(arr.length == 0) {
+    if (arr.length == 0) {
         arr.splice(0, 0, element);
         return;
     }
 
-    while(start <= end) {
-        let compare = arr[Math.floor((end + start)/2)][1];
+    while (start <= end) {
+        let compare = arr[Math.floor((end + start) / 2)][1];
 
         // console.log("Compare: " + compare);
         // console.log("Start: " + start);
         // console.log("End: " + end);
         // console.log(element[1]);
 
-        if(compare > element[1]) {
-            end = Math.floor((end + start)/2) - 1;
-        }
-        else if(compare < element[1]) {
-            start = Math.floor((end + start)/2) + 1;
-        }
-        else if(compare == element[1]) {
-            start = Math.floor((end + start)/2);
+        if (compare > element[1]) {
+            end = Math.floor((end + start) / 2) - 1;
+        } else if (compare < element[1]) {
+            start = Math.floor((end + start) / 2) + 1;
+        } else if (compare == element[1]) {
+            start = Math.floor((end + start) / 2);
             break;
         }
     }
     arr.splice(start, 0, element);
 }
 
+var btn = document.getElementById("calculateBtn");
+var input = document.getElementById("numInput");
+var output = document.getElementById("output");
 
 
-// **EXAMPLES**
-// console.log(calculateIrrationalBestApproximator(Math.PI, 1, 33215, 10));
-// console.log(calculateIrrationalSmallest(Math.PI, 1, 33215, 10, 5));
+//
