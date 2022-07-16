@@ -1,7 +1,7 @@
 function calculateIrrationalBestApproximator(irrational, startDenominator, endDenominator, take) {
     let numerators = [];
     let intPart = Math.floor(irrational);
-    irrational = irrational.split(".");
+    irrational = Number(irrational.split(".")[1]);
 
     let start = approximate(irrational, startDenominator);
     numerators[0] = [startDenominator, Math.abs(irrational * 10 ** 17 - start * 10 ** 17), start];
@@ -33,7 +33,9 @@ function calculateIrrationalBestApproximator(irrational, startDenominator, endDe
 function calculateIrrationalSmallest(irrational, startDenominator, endDenominator, take, precision) {
     let numerators = [];
     let intPart = Math.floor(irrational);
-    irrational = irrational - intPart;
+    irrational = Number(irrational.split(".")[1]);
+
+    console.log(irrational);
 
     if (startDenominator <= endDenominator) {
         bestApproxes = [];
@@ -44,7 +46,7 @@ function calculateIrrationalSmallest(irrational, startDenominator, endDenominato
             }
 
             let n = approximate(irrational, i);
-            let dif = Math.abs(irrational * 10 ** 17 - n / i * 10 ** 17);
+            let dif = Math.abs(irrational * 10 ** (17 - irrational.length) - n / i * 10 ** 17);
 
             console.log(17 - dif.toString().length);
             if (17 - dif.toString().length >= precision) {
@@ -118,17 +120,19 @@ submit.addEventListener("click", () => {
             irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value, precision.value
         );
     } else {
-        result = calculateIrrationalBestApproximator(irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value);
+        result = calculateIrrationalBestApproximator(
+            irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value
+        );
     }
     
     console.log(result);
-    let ans = "The top approximations are: $$"
+    let ans = "The top approximations are: "
     for(let approximations of result) {
         console.log("Numerator: " + approximations[0]);
         console.log("Denominator: " + approximations[2]);
         
-        ans += `${approximations[2]}/${approximations[0]}, `
+        ans += `${approximations[2]}/${approximations[0]}, `;
     }
-    output.textContent = ans.substring(0, ans.length - 2) + "$$";
+    output.textContent = ans.substring(0, ans.length - 2);
 });
 
