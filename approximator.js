@@ -101,9 +101,34 @@ function binaryAdd(arr, element) {
     arr.splice(start, 0, element);
 }
 
-var btn = document.getElementById("calculateBtn");
-var input = document.getElementById("numInput");
+var submit = document.getElementById("submit");
+var irrationalNum = document.getElementById("numInput");
 var output = document.getElementById("output");
+var topResults = document.getElementById("topResults");
+var typeApproximation = document.getElementById("typeApproximation");
+var precision = document.getElementById("precision");
 
+var startDenominator = document.getElementById("startDenominator");
+var endDenominator = document.getElementById("endDenominator");
 
-//
+submit.addEventListener("click", () => {
+    let result;
+    if(typeApproximation.value == 1) {
+        result = calculateIrrationalSmallest(
+            irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value, precision.value
+        );
+    } else {
+        result = calculateIrrationalBestApproximator(irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value);
+    }
+    
+    console.log(result);
+    let ans = "The top approximations are: $$"
+    for(let approximations of result) {
+        console.log("Numerator: " + approximations[0]);
+        console.log("Denominator: " + approximations[2]);
+        
+        ans += `${approximations[2]}/${approximations[0]}, `
+    }
+    output.textContent = ans.substring(0, ans.length - 2) + "$$";
+});
+

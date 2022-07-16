@@ -4,9 +4,51 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>Input the Number you want to Approximate Here.</p>
-    <input id="numInput" type="number" min="0">
-    <button id="calculateBtn">Calculate</button>
+    <form onsubmit="return false">
+        <label>Choose the type of approximation you want:</label>
+        <select id="typeApproximation">
+            <option value="0" selected disabled>Choose Here</option>
+            <option value="1">Smallest Denominators</option>
+            <option value="2">Best Approximations</option>
+        </select><br><br>
+        
+        <label>Choose the number of decimal points that you wish to be precise on (only applies to the case for "Smallest Denominators").</label>
+        <select id="precision">
+            <option value="0" selected disabled>Choose Here</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+        </select><br><br>
+        
+        
+        <label>What is the number of top approximations you would like to take?</label>
+        <input id="topResults" type="number" min="1" step="1" placeholder="10"><br><br>
+        
+        <label>Specify the start denominator and the end denominator.</label><br><br>
+        <label>Start Denominator: </label>
+        <input id="startDenominator" type="number" min="1"><br>
+        <label>End Denominator: </label>
+        <input id="endDenominator" type="number" min="1"><br><br>
+        
+        
+        <label>Input the number you want to approximate here.</label><br>
+        <input id="numInput" class="irrationalInput" type="decimal" min="0" placeholder="3.14159265358979323846">
+        <input id="submit" type="submit" value="Calculate">
+    </form>
 
     <p id="output"></p>
 
