@@ -1,7 +1,9 @@
 function calculateIrrationalBestApproximator(irrational, startDenominator, endDenominator, take) {
     let numerators = [];
     let intPart = Math.floor(irrational);
-    irrational = Number(irrational.split(".")[1]);
+    irrational = Number("0." + irrational.split(".")[1]);
+    
+    console.log(irrational);
 
     let start = approximate(irrational, startDenominator);
     numerators[0] = [startDenominator, Math.abs(irrational * 10 ** 17 - start * 10 ** 17), start];
@@ -33,7 +35,7 @@ function calculateIrrationalBestApproximator(irrational, startDenominator, endDe
 function calculateIrrationalSmallest(irrational, startDenominator, endDenominator, take, precision) {
     let numerators = [];
     let intPart = Math.floor(irrational);
-    irrational = Number(irrational.split(".")[1]);
+    irrational = Number("0." + irrational.split(".")[1]);
 
     console.log(irrational);
 
@@ -46,9 +48,8 @@ function calculateIrrationalSmallest(irrational, startDenominator, endDenominato
             }
 
             let n = approximate(irrational, i);
-            let dif = Math.abs(irrational * 10 ** (17 - irrational.length) - n / i * 10 ** 17);
+            let dif = Math.abs(irrational * 10 ** 17 - n / i * 10 ** 17);
 
-            console.log(17 - dif.toString().length);
             if (17 - dif.toString().length >= precision) {
                 binaryAdd(numerators, [i, dif, n]);
             }
@@ -103,7 +104,8 @@ function binaryAdd(arr, element) {
     arr.splice(start, 0, element);
 }
 
-var submit = document.getElementById("submit");
+
+var form = document.getElementById("myForm");
 var irrationalNum = document.getElementById("numInput");
 var output = document.getElementById("output");
 var topResults = document.getElementById("topResults");
@@ -113,15 +115,24 @@ var precision = document.getElementById("precision");
 var startDenominator = document.getElementById("startDenominator");
 var endDenominator = document.getElementById("endDenominator");
 
-submit.addEventListener("click", () => {
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
     let result;
+    let irrational = irrationalNum.value;
+    
+    console.log(irrationalNum.value);
+    if(!irrationalNum.value.includes(".")) {
+        irrational += ".0";
+    }
+    
     if(typeApproximation.value == 1) {
         result = calculateIrrationalSmallest(
-            irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value, precision.value
+            irrational, startDenominator.value, endDenominator.value, topResults.value, precision.value
         );
     } else {
         result = calculateIrrationalBestApproximator(
-            irrationalNum.value, startDenominator.value, endDenominator.value, topResults.value
+            irrational, startDenominator.value, endDenominator.value, topResults.value
         );
     }
     
@@ -136,3 +147,10 @@ submit.addEventListener("click", () => {
     output.textContent = ans.substring(0, ans.length - 2);
 });
 
+typeApproximation.addEventListener("change", () => {
+    if(typeApproximation.value == 1) {
+        precision.required = true;
+    } else {
+        precision.required = false;
+    }
+})

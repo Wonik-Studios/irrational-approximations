@@ -4,17 +4,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <form onsubmit="return false">
+    <form id="myForm">
         <label>Choose the type of approximation you want:</label>
-        <select id="typeApproximation">
-            <option value="0" selected disabled>Choose Here</option>
+        <select id="typeApproximation" required>
+            <option value="" selected disabled>Choose Here</option>
             <option value="1">Smallest Denominators</option>
             <option value="2">Best Approximations</option>
         </select><br><br>
         
         <label>Choose the number of decimal points that you wish to be precise on (only applies to the case for "Smallest Denominators").</label>
-        <select id="precision">
-            <option value="0" selected disabled>Choose Here</option>
+        <select id="precision" required>
+            <option value="" selected disabled>Choose Here</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -36,17 +36,17 @@
         
         
         <label>What is the number of top approximations you would like to take?</label>
-        <input id="topResults" type="number" min="1" step="1" placeholder="10"><br><br>
+        <input id="topResults" type="number" min="1" step="1" placeholder="10" required><br><br>
         
         <label>Specify the start denominator and the end denominator.</label><br><br>
         <label>Start Denominator: </label>
-        <input id="startDenominator" type="number" min="1"><br>
+        <input id="startDenominator" type="number" min="1" required><br>
         <label>End Denominator: </label>
-        <input id="endDenominator" type="number" min="1"><br><br>
+        <input id="endDenominator" type="number" min="1" required><br><br>
         
         
         <label>Input the number you want to approximate here.</label><br>
-        <input id="numInput" class="irrationalInput" type="decimal" min="0" placeholder="3.14159265358979323846">
+        <input id="numInput" class="irrationalInput" type="decimal" min="0" placeholder="3.14159265358979323846" required>
         <input id="submit" type="submit" value="Calculate">
     </form>
 
